@@ -8,7 +8,8 @@ public class Main {
     public static final String RESET = "\u001B[0m";
     public static final String RED = "\u001B[31m";
 
-    public static void main(String[] args) throws FileNotFoundException {
+    public static void main(String[] args){
+        //Variáveis de controle para repetição do código
         Scanner input = new Scanner(System.in);
         int num = 0;
         boolean stop = false;
@@ -30,9 +31,10 @@ public class Main {
 
 
             if (num == 1){
-                boolean parada = true;
-                char as = '"';
-                Scanner inputFile = null;
+
+
+                // Tentativa de ler arquivo
+                Scanner inputFile = null; //Inicialização da variável
                 try {
                     File file = new File("C:\\Users\\erickbarbosa-ieg\\OneDrive - Instituto J&F\\Área de Trabalho\\Tech\\LPR\\Codes\\manipulacao-arquivos\\src\\inteiros10.txt");
                     inputFile = new Scanner(file);
@@ -40,43 +42,51 @@ public class Main {
                     System.out.println("Arquivo não encontrado!");
                 }
 
-                int media = 0;
-                double cont = 0;
-                int cont2 = 1;
 
+                // Declaração de valores iniciais
+                boolean parada;
+                char aspas = '"';
+                int soma = 0;
+                double contMedia = 0;
+                int numLinha = 1;
+                String linha = null;
+                String[] valoresLinha;
+
+                // Verificação se a linha está vazia
+                // - Se tiver vazia, não vai mostrar o número da linha (vai passar para próxima)
                 while (inputFile.hasNextLine()){
                     parada = true;
-                    String linha = null;
                     while (parada == true){
-                        linha = inputFile.nextLine().trim();
+                        linha = inputFile.nextLine().trim(); //.trim() remove os espaços extras ao redor
                         if (linha.isEmpty()) {
-                            cont2++;
+                            numLinha++;
                         } else parada = false;
                     }
 
-                    System.out.println("\n\n-- Linha "+cont2+" --");
-                    String[] xi = linha.split(" ");
-                    for( String x: xi){
+                    //Apresenta em que linha foi encontrada determinado valor
+                    System.out.println("\n\n-- Linha "+numLinha+" --");
+                    valoresLinha = linha.split(" "); //Coloca os valores da linha em um vetor
+                    for( String valor: valoresLinha){
                         try{
-                            media += Integer.parseInt(x);
-                            if (x == xi[xi.length-1]){
-                                System.out.print("|\t"+x+"\t|");
+                            soma += Integer.parseInt(valor);
+                            if (valor == valoresLinha[valoresLinha.length-1]){
+                                System.out.print("|\t"+valor+"\t|");
                             } else {
-                                System.out.print("|\t" + x + "\t");
+                                System.out.print("|\t" + valor + "\t");
                             }
-                            cont++;
-                        } catch (NumberFormatException nfe){
-                            if (x != "") {
-                                System.out.print(RED+"(" + as + x + as + " - Não é um número inteiro aceito)\t\t"+RESET);
+                            contMedia++;
+                        } catch (NumberFormatException nfe){ //Detecta erro de formação do inteiro no "parseInt"
+                            if (valor != "") {
+                                System.out.print(RED+"(" + aspas + valor + aspas + " - Não é um número inteiro aceito)\t\t"+RESET); //Não printa se o erro for ter um espaço
                             }
                         }
                     }
-                    cont2++;
+                    numLinha++;
                 } inputFile.close();
 
                 try {
-                    if (cont == 0) throw new IllegalArgumentException("Sem valores inteiros no arquivo!");
-                    System.out.println(GREEN+"\n\nMédia ➜ "+media/cont+RESET);
+                    if (contMedia == 0) throw new IllegalArgumentException("Sem valores inteiros no arquivo!");
+                    System.out.println(GREEN+"\n\nMédia ➜ "+soma/contMedia+RESET);
                 } catch (IllegalArgumentException iae){
                     System.out.println("\n\n"+iae);
                 }
@@ -84,31 +94,34 @@ public class Main {
 
 
             if (num == 2){
+                //Declaração de valores
                 Scanner inputFile = null;
                 boolean verificador = false;
-                int i =0;
+                int numLinhas =0;
+                String[] nome;
+                Double[] preco;
 
+                //Abrir o arquivo para criar vetores com o tamanho correto
                 try {
                     File file = new File("src/produtos.txt");
                     inputFile = new Scanner(file);
                 } catch (FileNotFoundException fne){
                     System.out.println("Arquivo não encontrado!");
                 }
-
                 while (inputFile.hasNextLine()){
                     inputFile.nextLine();
-                    i++;
+                    numLinhas++;
                 }
-
                 inputFile.close();
+
+                //Reabrir o arquivo
                 try {
                     inputFile = new Scanner(new File("src/produtos.txt"));
                 } catch (FileNotFoundException fne){
                     System.out.println("Erro ao reabrir o arquivo!");
                 }
-
-                String[] nome = new String[i];
-                Double[] preco = new Double[i];
+                nome = new String[numLinhas];
+                preco = new Double[numLinhas];
 
                 for (int contador = 0; contador<nome.length; contador++){
                     nome[contador] = inputFile.next();
@@ -127,7 +140,7 @@ public class Main {
                         System.out.println(GREEN+"\nProduto na posição " + pos + ": " + nome[pos-1] + " ➜ R$" + preco[pos-1]+RESET);
                         verificador = true;
                     } catch (IllegalArgumentException iae){
-                        System.out.println(iae);
+                        System.out.println(RED+iae+RESET);
                     } catch (InputMismatchException ime){
                         System.out.println("SOMENTE VALORES INTEIROS!");
                         input.nextLine();
