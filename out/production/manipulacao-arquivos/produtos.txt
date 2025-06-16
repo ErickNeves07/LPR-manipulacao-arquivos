@@ -69,9 +69,7 @@ Costela Defumada 79,60
 Bife de Tira 107,40
 Tiras de Contra 97,80
 Peito Temperado 55,00
-Maminha com Alho
-
-94,30
+Maminha com Alho 94,30
 Patinho em Cubos 65,20
 Ponta de Peito Suína 45,70
 Picanha Especial 130,20

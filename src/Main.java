@@ -69,14 +69,14 @@ public class Main {
                     for( String valor: valoresLinha){
                         try{
                             soma += Integer.parseInt(valor);
-                            if (valor == valoresLinha[valoresLinha.length-1]){
+                            if (valor.equals(valoresLinha[valoresLinha.length-1])){
                                 System.out.print("|\t"+valor+"\t|");
                             } else {
                                 System.out.print("|\t" + valor + "\t");
                             }
                             contMedia++;
                         } catch (NumberFormatException nfe){ //Detecta erro de formação do inteiro no "parseInt"
-                            if (valor != "") {
+                            if (!valor.equals("")) {
                                 System.out.print(RED+"(" + aspas + valor + aspas + " - Não é um número inteiro aceito)\t\t"+RESET); //Não printa se o erro for ter um espaço
                             }
                         }
