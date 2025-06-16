@@ -27,7 +27,7 @@ public class Main {
                 } catch (IllegalArgumentException iae){
                     System.out.println(iae);
                 }
-            } while (stop == false);
+            } while (!stop);
 
 
             if (num == 1){
@@ -56,7 +56,7 @@ public class Main {
                 // - Se tiver vazia, não vai mostrar o número da linha (vai passar para próxima)
                 while (inputFile.hasNextLine()){
                     parada = true;
-                    while (parada == true){
+                    while (parada){
                         linha = inputFile.nextLine().trim(); //.trim() remove os espaços extras ao redor
                         if (linha.isEmpty()) {
                             numLinha++;
