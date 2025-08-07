@@ -82,8 +82,7 @@ public class Main {
                 inputFile.close();
 
                 try {
-                    if (contMedia == 0)
-                        throw new IllegalArgumentException(RED + "Sem valores inteiros no arquivo!" + RESET);
+                    if (contMedia == 0) throw new IllegalArgumentException(RED + "Sem valores inteiros no arquivo!" + RESET);
                     System.out.println(GREEN + "\n\nMédia ➜ " + soma / contMedia + RESET);
                 } catch (IllegalArgumentException iae) {
                     System.out.println("\n\n" + iae);
@@ -137,7 +136,7 @@ public class Main {
                         if (pos > nome.length | pos <= 0) {
                             throw new IllegalArgumentException("Produto fora do vetor!");
                         }
-                        System.out.println(GREEN + "\nProduto na posição " + pos + ": " + nome[pos - 1] + " ➜ R$" + preco[pos - 1] + RESET);
+                        System.out.println(GREEN + "\nProduto na posição " + pos + ": " + nome[pos - 1] + " ➜ R$" + String.format("%.2f", preco[pos - 1]) + RESET);
                         verificador = true;
                     } catch (IllegalArgumentException iae) {
                         System.out.println(RED + iae + RESET);
